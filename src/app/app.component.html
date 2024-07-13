@@ -1,6 +1,11 @@
-<div class="flex h-full items-center justify-center p-2">
-    <div>
-        <app-add-user></app-add-user>
-        <app-users></app-users>
-    </div>
-</div>
+<mat-tab-group class="w-full h-full">
+    <mat-tab label="Add User Workout">
+        <app-add-user (userAdded)="usersComponent.loadUsers();progressChartComponent.loadUsers()"></app-add-user>
+    </mat-tab>
+    <mat-tab label="Workout Progress">
+        <app-progress-chart #progressChartComponent></app-progress-chart>
+    </mat-tab>
+    <mat-tab label="All Users Workout List"> 
+        <app-users #usersComponent></app-users>
+    </mat-tab>
+</mat-tab-group>

@@ -1,37 +1,36 @@
-<h6>Users Table</h6>
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-    </ng-container>
-
+<div class="mat-elevation-z8 w-full">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    <!-- Workouts Column -->
+    <ng-container matColumnDef="workouts">
+      <th mat-header-cell *matHeaderCellDef> Workouts </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="flex">
+          <p *ngFor="let workout of element.workouts;let i = index; let last = last">{{ workout.type }}<span *ngIf="!last">,&nbsp; </span></p>
+        </div>
+      </td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    <!-- Total Workouts Column -->
+    <ng-container matColumnDef="totalWorkouts">
+      <th mat-header-cell *matHeaderCellDef> Number of Workouts </th>
+      <td mat-cell *matCellDef="let element"> {{element.totalWorkouts}} </td>
+    </ng-container>
+
+    <!-- Total Workout Minutes Column -->
+    <ng-container matColumnDef="totalMinutes">
+      <th mat-header-cell *matHeaderCellDef> Total Workout Minutes </th>
+      <td mat-cell *matCellDef="let element"> {{element.totalMinutes}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-<!-- 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator> -->
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
 </div>
