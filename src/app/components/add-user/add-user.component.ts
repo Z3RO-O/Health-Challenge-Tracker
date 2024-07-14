@@ -28,14 +28,16 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { Workout, workoutOptions } from '@/app/components/add-user/add-user.model';
+import {
+  Workout,
+  workoutOptions,
+} from '@/app/components/add-user/add-user.model';
 import { AddUserService } from '@/app/services/add-user/add-user.service';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 200,
   hideDelay: 500,
   touchendHideDelay: 800,
-  position: 'after',
 };
 
 @Component({
@@ -68,36 +70,36 @@ export class AddUserComponent {
 
   constructor(
     private addUserService: AddUserService,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {}
 
-
-  name: string = '';
+  name: string | null = null;
   workoutMinutes: number | null = null;
-  workoutType: string = '';
+  workoutType: string | null = null;
   workoutOptions = workoutOptions;
 
   onSubmit(form: NgForm) {
-    if (form) {
-      const success = this.addUserService.addUser(this.name, this.workoutType, this.workoutMinutes);
-      if (success) {
-        this.name = '';
-        this.workoutType = '';
-        this.workoutMinutes = null;
-        form.resetForm();
-        this.userAdded.emit();
-        this.dialog.closeAll();
-      }
-    }
+    const success = this.addUserService.addUser(
+      this.name,
+      this.workoutType,
+      this.workoutMinutes
+    );
+    if (success) {
+      this.name = null;
+      this.workoutType = null;
+      this.workoutMinutes = null;
+      form.resetForm();
+      this.userAdded.emit();
+      this.dialog.closeAll();
+    } else form.resetForm();
   }
-
   onCancel() {
     this.dialog.closeAll();
   }
-  
+
   openDialog() {
     const dialogRef = this.dialog.open(this.dialogTemplate, {
-      width: '500px'
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

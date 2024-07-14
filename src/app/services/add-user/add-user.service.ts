@@ -9,9 +9,18 @@ import { Workout } from '@/app/components/add-user/add-user.model';
 export class AddUserService {
   constructor(private _snackBar: MatSnackBar) {}
 
-  addUser(name: string, workoutType: string, workoutMinutes: number | null): boolean {
-    if (!name || !workoutType || workoutMinutes === null) {
+  addUser(
+    name: string | null,
+    workoutType: string | null,
+    workoutMinutes: number | null
+  ): boolean {
+    if (name === null || workoutType === null || workoutMinutes === null) {
       this.openSnackBar('All fields are required!', 'Close');
+      return false;
+    }
+
+    if (workoutMinutes <= 0) {
+      this.openSnackBar('Invalid workout duration!', 'Close');
       return false;
     }
 
@@ -48,14 +57,12 @@ export class AddUserService {
       users.push(newUser);
     }
 
-    localStorage.setItem('workoutData', JSON.stringify(users));
     this.openSnackBar('User added successfully!', 'Close');
+    localStorage.setItem('workoutData', JSON.stringify(users));
     return true;
   }
 
   private openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
+    this._snackBar.open(message, action, { duration: 2000 });
   }
 }

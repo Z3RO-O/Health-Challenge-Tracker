@@ -5,5 +5,5 @@ export interface User {
   name: string;
   workouts: Workout[];
   totalWorkouts: number;
-  totalMinutes: number | null;
+  totalMinutes: number;
 }

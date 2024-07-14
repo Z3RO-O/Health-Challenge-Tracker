@@ -24,7 +24,7 @@ import { initialData } from '@/app/app.model';
 })
 export class AppComponent {
   title = 'health-hustle';
-  
+
   @ViewChild('usersComponent') usersComponent!: UsersComponent;
   @ViewChild('progressChartComponent')
   progressChartComponent!: ProgressChartComponent;
@@ -43,14 +43,14 @@ export class AppComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
-      width: '500px'
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (this.usersComponent) {
           this.usersComponent.loadUsers();
-        } 
+        }
         if (this.progressChartComponent) {
           this.progressChartComponent.loadUsers();
         }

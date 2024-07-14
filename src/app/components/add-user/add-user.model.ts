@@ -7,6 +7,6 @@ export const workoutOptions = [
 ];
 
 export interface Workout {
-  type: string;
-  minutes: number | null;
+  type: string | null;
+  minutes: number;
 }

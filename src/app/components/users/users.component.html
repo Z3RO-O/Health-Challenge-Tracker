@@ -22,7 +22,7 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="w-full overflow-y-auto">
+  <div class="w-full">
     <table mat-table [dataSource]="dataSource">
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -62,7 +62,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    
+
     <mat-paginator
       [pageSizeOptions]="[5, 10, 20]"
       showFirstLastButtons

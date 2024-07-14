@@ -82,7 +82,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       const matchesWorkoutType =
         workoutType === 'all' ||
         data.workouts.some(
-          workout => workout.type.toLowerCase() === workoutType.toLowerCase()
+          workout => workout.type?.toLowerCase() === workoutType.toLowerCase()
         );
 
       return matchesSearchTerm && matchesWorkoutType;
