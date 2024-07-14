@@ -5,8 +5,9 @@ import { MatSelectModule, MatSelectChange } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { User } from './users.model';
-import { workoutOptions } from '../add-user/add-user.component';
+
+import { User } from '@/app/components/users/users.model';
+import { workoutOptions } from '@/app/components/add-user/add-user.component';
 
 @Component({
   selector: 'app-users',

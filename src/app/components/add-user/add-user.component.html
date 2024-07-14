@@ -1,8 +1,12 @@
 <div class="flex items-center justify-center h-full">
-  <form
+  <button mat-flat-button (click)="openDialog()">Add Workout</button>
+</div>
+
+<ng-template #dialogTemplate>
+    <form
     class="min-w-[150px] max-w-[500px] w-full border-2 p-8 rounded bg-white"
     #form="ngForm"
-    (ngSubmit)="onSubmit(form)">
+     (ngSubmit)="onSubmit(form)">
     <h6 mat-dialog-title>Add Workout Details</h6>
 
     <mat-form-field class="w-full">
@@ -56,12 +60,22 @@
       </div>
     </mat-form-field>
 
-    <button
-      mat-raised-button
-      matTooltip="Add Workout in the List"
-      type="submit">
-      <mat-icon>add_task</mat-icon>
-      Add Workout
-    </button>
+    <div class="flex justify-end mt-4 gap-4">
+      <button
+        mat-flat-button
+        matTooltip="Cancel"
+        type="button"
+        (click)="onCancel()">
+        Cancel
+      </button>
+      <button
+        mat-flat-button
+        matTooltip="Add Workout in the List"
+        type="submit">
+        <mat-icon>add_task</mat-icon>
+        Add Workout
+      </button>
+    </div>
   </form>
-</div>
+</ng-template>
+

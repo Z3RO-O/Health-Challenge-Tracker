@@ -1,9 +1,9 @@
 export const workoutOptions = [
-  { value: 'yoga', viewValue: 'Yoga' },
-  { value: 'cycling', viewValue: 'Cycling' },
-  { value: 'swimming', viewValue: 'Swimming' },
-  { value: 'running', viewValue: 'Running' },
-  { value: 'weightlifting', viewValue: 'Weightlifting' },
+  { value: 'Yoga', viewValue: 'Yoga' },
+  { value: 'Cycling', viewValue: 'Cycling' },
+  { value: 'Swimming', viewValue: 'Swimming' },
+  { value: 'Running', viewValue: 'Running' },
+  { value: 'Weightlifting', viewValue: 'Weightlifting' },
 ];
 
 export interface Workout {

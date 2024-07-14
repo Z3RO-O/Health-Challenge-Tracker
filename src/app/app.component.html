@@ -1,14 +1,16 @@
 <div class="w-full h-full">
-  <button mat-raised-button (click)="openDialog()">Pick one</button>
   <mat-tab-group>
-    <mat-tab label="Workout Progress">
-      <app-progress-chart #progressChartComponent></app-progress-chart>
-    </mat-tab>
     <mat-tab label="All Users Workout List">
-      <app-users #usersComponent></app-users>
+      <div class="flex-col space-x-10 pt-6">
+        <app-add-user (userAdded)="usersComponent.loadUsers();progressChartComponent.loadUsers()"></app-add-user>
+        <app-users #usersComponent></app-users>
+      </div>
     </mat-tab>
-    <!-- <mat-tab label="Add User Workout">
-            <app-add-user (userAdded)="usersComponent.loadUsers();progressChartComponent.loadUsers()"></app-add-user>
-        </mat-tab> -->
+    <mat-tab label="Workout Progress">
+      <div class="flex-col space-x-10 pt-6">
+        <app-add-user (userAdded)="usersComponent.loadUsers();progressChartComponent.loadUsers()"></app-add-user>
+        <app-progress-chart #progressChartComponent></app-progress-chart>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 </div>

@@ -2,13 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Inject,
   Output,
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_TOOLTIP_DEFAULT_OPTIONS,
@@ -16,7 +18,6 @@ import {
   MatTooltipModule,
 } from '@angular/material/tooltip';
 import {
-  MAT_DIALOG_DATA,
   MatDialog,
   MatDialogActions,
   MatDialogClose,
@@ -26,8 +27,9 @@ import {
 } from '@angular/material/dialog';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { User } from '../users/users.component';
-import { Workout, workoutOptions } from './add-user.model';
+
+import { Workout, workoutOptions } from '@/app/components/add-user/add-user.model';
+import { AddUserService } from '@/app/services/add-user/add-user.service';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 200,
@@ -61,67 +63,48 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddUserComponent {
-  constructor(private _snackBar: MatSnackBar) {}
-
   @Output() userAdded = new EventEmitter<void>();
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+
+  constructor(
+    private addUserService: AddUserService,
+    public dialog: MatDialog,
+  ) {}
+
 
   name: string = '';
   workoutMinutes: number | null = null;
   workoutType: string = '';
   workoutOptions = workoutOptions;
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
+  onSubmit(form: NgForm) {
+    if (form) {
+      const success = this.addUserService.addUser(this.name, this.workoutType, this.workoutMinutes);
+      if (success) {
+        this.name = '';
+        this.workoutType = '';
+        this.workoutMinutes = null;
+        form.resetForm();
+        this.userAdded.emit();
+        this.dialog.closeAll();
+      }
+    }
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      const newWorkout: Workout = {
-        type: this.workoutType,
-        minutes: this.workoutMinutes,
-      };
+  onCancel() {
+    this.dialog.closeAll();
+  }
+  
+  openDialog() {
+    const dialogRef = this.dialog.open(this.dialogTemplate, {
+      width: '500px'
+    });
 
-      let users = JSON.parse(localStorage.getItem('workoutData') || '[]');
-      const userIndex = users.findIndex(
-        (user: User) => user.name === this.name
-      );
-
-      if (userIndex !== -1) {
-        const user = users[userIndex];
-        const workoutIndex = user.workouts.findIndex(
-          (workout: Workout) => workout.type === this.workoutType
-        );
-
-        if (workoutIndex !== -1) {
-          user.workouts[workoutIndex].minutes += newWorkout.minutes;
-          user.totalMinutes += newWorkout.minutes;
-        } else {
-          user.workouts.push(newWorkout);
-          user.totalWorkouts += 1;
-          user.totalMinutes += newWorkout.minutes;
-        }
-      } else {
-        const newUser: User = {
-          id: users.length + 1,
-          name: this.name,
-          workouts: [newWorkout],
-          totalWorkouts: 1,
-          totalMinutes: newWorkout.minutes,
-        };
-        users.push(newUser);
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.userAdded.emit();
       }
-
-      localStorage.setItem('workoutData', JSON.stringify(users));
-
-      this.name = '';
-      this.workoutType = '';
-      this.workoutMinutes = null;
-      form.resetForm();
-      this.openSnackBar('User added successfully!', 'Close');
-      this.userAdded.emit();
-    }
+    });
   }
 }
 
