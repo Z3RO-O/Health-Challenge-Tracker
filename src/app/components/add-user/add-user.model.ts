@@ -3,10 +3,10 @@ export const workoutOptions = [
   { value: 'cycling', viewValue: 'Cycling' },
   { value: 'swimming', viewValue: 'Swimming' },
   { value: 'running', viewValue: 'Running' },
-  { value: 'weightlifting', viewValue: 'Weightlifting' }
+  { value: 'weightlifting', viewValue: 'Weightlifting' },
 ];
 
 export interface Workout {
-    type: string;
-    minutes: number | null;
-};
+  type: string;
+  minutes: number | null;
+}

@@ -2,47 +2,67 @@
   <div class="md:flex justify-between">
     <mat-form-field class="max-w-1/3 lg:w-1/3">
       <mat-label>Search</mat-label>
-      <input matInput (keyup)="search($event)" placeholder="Search by Name" class="search-input" >
+      <input
+        matInput
+        (keyup)="search($event)"
+        placeholder="Search by Name"
+        class="search-input" />
     </mat-form-field>
     <mat-form-field appearance="fill" class="max-w-1/3 lg:w-1/3">
       <mat-label>Filter by Workout Type</mat-label>
-      <mat-select [(value)]="selectedWorkoutType" (selectionChange)="filterByWorkoutType($event)">
-        <mat-option *ngFor="let workout of workoutOptions" [value]="workout.value">{{workout.viewValue}}</mat-option>
+      <mat-select
+        [(value)]="selectedWorkoutType"
+        (selectionChange)="filterByWorkoutType($event)">
+        <mat-option
+          *ngFor="let workout of workoutOptions"
+          [value]="workout.value"
+          >{{ workout.viewValue }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
   </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
     <!-- Workouts Column -->
     <ng-container matColumnDef="workouts">
-      <th mat-header-cell *matHeaderCellDef> Workouts </th>
+      <th mat-header-cell *matHeaderCellDef>Workouts</th>
       <td mat-cell *matCellDef="let element">
         <div class="flex">
-          <p *ngFor="let workout of element.workouts;let i = index; let last = last">{{ workout.type }}<span *ngIf="!last">,&nbsp; </span></p>
+          <p
+            *ngFor="
+              let workout of element.workouts;
+              let i = index;
+              let last = last
+            ">
+            {{ workout.type }}<span *ngIf="!last">,&nbsp; </span>
+          </p>
         </div>
       </td>
     </ng-container>
 
     <!-- Total Workouts Column -->
     <ng-container matColumnDef="totalWorkouts">
-      <th mat-header-cell *matHeaderCellDef> Number of Workouts </th>
-      <td mat-cell *matCellDef="let element"> {{element.totalWorkouts}} </td>
+      <th mat-header-cell *matHeaderCellDef>Number of Workouts</th>
+      <td mat-cell *matCellDef="let element">{{ element.totalWorkouts }}</td>
     </ng-container>
 
     <!-- Total Workout Minutes Column -->
     <ng-container matColumnDef="totalMinutes">
-      <th mat-header-cell *matHeaderCellDef> Total Workout Minutes </th>
-      <td mat-cell *matCellDef="let element"> {{element.totalMinutes}} </td>
+      <th mat-header-cell *matHeaderCellDef>Total Workout Minutes</th>
+      <td mat-cell *matCellDef="let element">{{ element.totalMinutes }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"></mat-paginator>
 </div>

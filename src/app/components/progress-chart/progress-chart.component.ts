@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 import { User } from '../users/users.model';
@@ -12,12 +12,11 @@ Chart.register(CategoryScale);
   standalone: true,
   imports: [CommonModule, MatListModule],
   templateUrl: './progress-chart.component.html',
-  styleUrl: './progress-chart.component.css'
+  styleUrl: './progress-chart.component.css',
 })
-
 export class ProgressChartComponent {
   @ViewChild('myChart') private chartRef!: ElementRef<HTMLCanvasElement>;
-  
+
   users: User[] = [];
   selectedUser: User | null = null;
   chart: Chart | null = null;
@@ -37,13 +36,13 @@ export class ProgressChartComponent {
     const workoutDataString = localStorage.getItem('workoutData');
     if (workoutDataString) {
       this.users = JSON.parse(workoutDataString);
-      if(this.selectedUser) {
+      if (this.selectedUser) {
         const foundUser = this.users.find(u => u.id === this.selectedUser!.id);
         if (foundUser) {
           this.selectedUser = foundUser;
           this.updateChart(this.selectedUser);
         } else {
-          this.selectedUser = null; 
+          this.selectedUser = null;
         }
       }
     }
@@ -61,19 +60,21 @@ export class ProgressChartComponent {
         type: 'bar',
         data: {
           labels: user.workouts.map((w: any) => w.type),
-          datasets: [{
-            label: 'Minutes',
-            data: user.workouts.map((w: any) => w.minutes),
-            borderWidth: 1
-          }]
+          datasets: [
+            {
+              label: 'Minutes',
+              data: user.workouts.map((w: any) => w.minutes),
+              borderWidth: 1,
+            },
+          ],
         },
         options: {
           scales: {
             y: {
-              beginAtZero: true
-            }
-          }
-        }
+              beginAtZero: true,
+            },
+          },
+        },
       });
     }
   }
@@ -81,7 +82,9 @@ export class ProgressChartComponent {
   updateChart(user: any) {
     if (this.chart) {
       this.chart.data.labels = user.workouts.map((w: any) => w.type);
-      this.chart.data.datasets[0].data = user.workouts.map((w: any) => w.minutes);
+      this.chart.data.datasets[0].data = user.workouts.map(
+        (w: any) => w.minutes
+      );
       this.chart.update();
     }
   }

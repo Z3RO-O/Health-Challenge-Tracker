@@ -8,9 +8,8 @@ describe('ProgressChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProgressChartComponent]
-    })
-    .compileComponents();
+      imports: [ProgressChartComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProgressChartComponent);
     component = fixture.componentInstance;
