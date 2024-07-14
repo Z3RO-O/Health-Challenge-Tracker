@@ -13,7 +13,7 @@ import {
 import {FormsModule, NgForm} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { User } from '../users/users.component';
-import { Workout } from './add-user.model';
+import { Workout, workoutOptions } from './add-user.model';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 200,
@@ -38,14 +38,8 @@ export class AddUserComponent {
 
   name: string = '';
   workoutMinutes: number | null = null;
-  workoutType: string | null = null;
-
-  workoutOptions = [
-    { value: 'Cycling', viewValue: 'Cycling' },
-    { value: 'Swimming', viewValue: 'Swimming' },
-    { value: 'Running', viewValue: 'Running' },
-    { value: 'Weightlifting', viewValue: 'Weightlifting' }
-  ];
+  workoutType: string = '';
+  workoutOptions = workoutOptions;
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action,{
@@ -98,4 +92,4 @@ export class AddUserComponent {
   }
 }
 
-export  { Workout };
+export  { Workout, workoutOptions };

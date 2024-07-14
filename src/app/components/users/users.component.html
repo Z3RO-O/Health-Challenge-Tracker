@@ -1,4 +1,16 @@
-<div class="mat-elevation-z8 w-full">
+<div class="mat-elevation-z8 w-full p-10">
+  <div class="md:flex justify-between">
+    <mat-form-field class="max-w-1/3 lg:w-1/3">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="search($event)" placeholder="Search by Name" class="search-input" >
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="max-w-1/3 lg:w-1/3">
+      <mat-label>Filter by Workout Type</mat-label>
+      <mat-select [(value)]="selectedWorkoutType" (selectionChange)="filterByWorkoutType($event)">
+        <mat-option *ngFor="let workout of workoutOptions" [value]="workout.value">{{workout.viewValue}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
