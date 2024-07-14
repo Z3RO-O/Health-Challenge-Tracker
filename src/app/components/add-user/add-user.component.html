@@ -11,12 +11,7 @@
 
     <mat-form-field class="w-full">
       <mat-label>User Name</mat-label>
-      <input
-        matInput
-        placeholder="John Doe"
-        [(ngModel)]="name"
-        name="name"
-        required />
+      <input matInput [(ngModel)]="name" name="name" required />
       <mat-icon matSuffix>person</mat-icon>
       <div
         *ngIf="form.submitted && form.controls['name']?.invalid"
@@ -46,7 +41,6 @@
       <mat-label>Workout Minutes</mat-label>
       <input
         matInput
-        placeholder="30"
         [(ngModel)]="workoutMinutes"
         name="workoutMinutes"
         required

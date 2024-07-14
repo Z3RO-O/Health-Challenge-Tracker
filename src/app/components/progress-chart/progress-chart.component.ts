@@ -37,7 +37,7 @@ export class ProgressChartComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.users = this.loadUsers();
+    this.loadUsers();
   }
 
   ngAfterViewInit() {
@@ -62,19 +62,23 @@ export class ProgressChartComponent implements OnInit, AfterViewInit {
   loadUsers() {
     const workoutDataString = localStorage.getItem('workoutData');
     if (workoutDataString) {
-      if (!this.selectedUser && this.users?.length > 0) {
+      this.users = JSON.parse(workoutDataString);
+      if (!this.selectedUser && this.users.length > 0) {
         this.selectedUser = this.users[0];
-        this.chartService.createChart(
-          this.chartRef.nativeElement,
-          this.selectedUser
-        );
+        this.initializeChart();
       }
-      return JSON.parse(workoutDataString);
     }
   }
 
   onSelectUser(user: User) {
     this.selectedUser = user;
     this.chartService.updateChart(user);
+  }
+
+  onUserAdded() {
+    this.loadUsers();
+    if (this.selectedUser) {
+      this.chartService.updateChart(this.selectedUser);
+    }
   }
 }

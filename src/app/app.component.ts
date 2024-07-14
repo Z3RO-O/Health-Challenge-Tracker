@@ -48,13 +48,16 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (this.usersComponent) {
-          this.usersComponent.loadUsers();
-        }
-        if (this.progressChartComponent) {
+        if (this.usersComponent) this.usersComponent.loadUsers();
+        if (this.progressChartComponent)
           this.progressChartComponent.loadUsers();
-        }
       }
     });
+  }
+
+  onUserAdded() {
+    if (this.progressChartComponent) {
+      this.progressChartComponent.onUserAdded();
+    }
   }
 }

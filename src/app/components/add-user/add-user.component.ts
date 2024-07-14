@@ -85,13 +85,10 @@ export class AddUserComponent {
       this.workoutMinutes
     );
     if (success) {
-      this.name = null;
-      this.workoutType = null;
-      this.workoutMinutes = null;
       form.resetForm();
       this.userAdded.emit();
       this.dialog.closeAll();
-    } else form.resetForm();
+    }
   }
   onCancel() {
     this.dialog.closeAll();

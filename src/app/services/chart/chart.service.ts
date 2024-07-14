@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { User } from '@/app/components/users/users.model';
 import Chart from 'chart.js/auto';
+
+import { User } from '@/app/components/users/users.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChartService {
   private chart: Chart | null = null;
+
+  constructor() {}
 
   createChart(chartRef: HTMLCanvasElement, user: User) {
     const ctx = chartRef.getContext('2d');
@@ -36,8 +39,10 @@ export class ChartService {
 
   updateChart(user: User) {
     if (this.chart) {
-      this.chart.data.labels = user.workouts.map(w => w.type);
-      this.chart.data.datasets[0].data = user.workouts.map(w => w.minutes);
+      this.chart.data.labels = user.workouts.map((w: any) => w.type);
+      this.chart.data.datasets[0].data = user.workouts.map(
+        (w: any) => w.minutes
+      );
       this.chart.update();
     }
   }
