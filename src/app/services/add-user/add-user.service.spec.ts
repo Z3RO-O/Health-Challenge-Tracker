@@ -259,4 +259,28 @@ describe('AddUserService', () => {
     );
     expect(localStorage.setItem).not.toHaveBeenCalled();
   });
+
+  it('should not add a workout with zero or negative minutes', () => {
+    spyOn(localStorage, 'getItem').and.returnValue('[]');
+    spyOn(localStorage, 'setItem');
+
+    service = new AddUserService(mockSnackBar); // Initialize the 'service' variable
+    let result = service.addUser('John Doe', 'Running', 0);
+    expect(result).toBeFalse();
+    expect(mockSnackBar.open).toHaveBeenCalledWith(
+      'Invalid workout duration!',
+      'Close',
+      { duration: 2000 }
+    );
+    expect(localStorage.setItem).not.toHaveBeenCalled();
+
+    result = service.addUser('John Doe', 'Running', -10);
+    expect(result).toBeFalse();
+    expect(mockSnackBar.open).toHaveBeenCalledWith(
+      'Invalid workout duration!',
+      'Close',
+      { duration: 2000 }
+    );
+    expect(localStorage.setItem).not.toHaveBeenCalled();
+  });
 });

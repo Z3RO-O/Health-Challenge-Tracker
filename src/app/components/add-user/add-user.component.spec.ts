@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { AddUserComponent } from './add-user.component';
@@ -45,6 +44,7 @@ describe('AddUserComponent', () => {
       AddUserService
     ) as jasmine.SpyObj<AddUserService>;
     dialog = TestBed.inject(MatDialog);
+
     fixture.detectChanges();
   });
 
@@ -74,11 +74,40 @@ describe('AddUserComponent', () => {
     expect(form.resetForm).toHaveBeenCalled();
   });
 
+  it('should handle add user failure', async () => {
+    addUserServiceSpy.addUser.and.returnValue(false); // Ensure the service call succeeds
+    const dialogSpy = spyOn(dialog, 'closeAll');
+    const emitSpy = spyOn(component.userAdded, 'emit');
+
+    component.name = 'Test User';
+    component.workoutMinutes = 0;
+    component.workoutType = 'Cycling';
+    fixture.detectChanges();
+
+    await fixture.whenStable();
+
+    const form = {
+      valid: true,
+      resetForm: jasmine.createSpy('resetForm'),
+    } as unknown as NgForm;
+
+    component.onSubmit(form);
+    expect(component.errorMessage).toBe('Failed to add user');
+    expect(emitSpy).not.toHaveBeenCalled();
+    expect(dialogSpy).not.toHaveBeenCalled();
+  });
+
   it('should open dialog on openDialog call', () => {
     const dialogSpy = spyOn(dialog, 'open').and.returnValue({
       afterClosed: () => of(true),
     } as MatDialogRef<typeof component>);
     component.openDialog();
+    expect(dialogSpy).toHaveBeenCalled();
+  });
+
+  it('should close dialog on onCancel call', () => {
+    const dialogSpy = spyOn(dialog, 'closeAll');
+    component.onCancel();
     expect(dialogSpy).toHaveBeenCalled();
   });
 });

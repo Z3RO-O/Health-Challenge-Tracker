@@ -1,6 +1,14 @@
 # HealthHustle
 
+Assignment for Frontend Development Challenge July, 2024.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+
+## Code Coverage
+
+Unit tests for 1 component and 1 service with 100% code coverage for the component (`add-user.component.ts`) and service (`add-user.service.ts`) included in the respective spec files.
+
+![alt text](images/coverage.png)
 
 ## Website
 
@@ -27,10 +35,75 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 Run `ng test` OR `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 Run `npm run test:cov` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Objective
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Design an Angular 14+ single-page application (SPA) to track workouts.
 
-## Further help
+## Features
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Inputs
+
+- User name
+- Workout type
+- Workout minutes
+
+### User Workout List
+
+- Display user workout entries in a table
+- Search by user name and Filter by workout type
+- Pagination for more than 5 users
+
+### Optional
+
+- Display workout progress using charts
+
+## Implemented
+
+- **Input Fields:**
+  - On Click on `Add Workout` Button a dialog opens to add workouts.
+  - Fields for adding user name, workout type, and workout minutes.
+  - Add button to submit the data.
+- **User Data**:
+  - Initial data with 3 users in localStorage.
+  - Data format:
+    ```js
+    userData = [
+      {
+        id: 1,
+        name: 'John Doe',
+        totalMinutes: 75,
+        totalWorkouts: 2,
+        workouts: [
+          { type: 'Running', minutes: 30 },
+          { type: 'Cycling', minutes: 45 }
+        ]
+      },
+      ...
+    ]
+    ```
+- **Table Grid**:
+  - Display users and their workouts.
+  - Search by name and Filter by workout type.
+  - Pagination for more than 5 users.
+- **Unit Tests**:
+  - 100% code coverage for 1 component (`add-user.component.ts`) and 1 service (`add-user.service.ts`).
+  - Includes code coverage report in README.
+- **Library Used**:
+
+  - Used Material UI for various components.
+  - Used chartjs for Chart.
+
+- **Styling**:
+  - Use Tailwind CSS.
+- **Deployment**:
+
+  - Hosted on Vercel.
+
+- **Optional Feature**:
+
+  - Added charts to display workout progress.
+  - Added Tabs for easy switching between the Workout list and Progress Chart.
+  - Added Snackbar for better user feedback.
+
+- **Assumptions Made**:
+  - After adding the workout we don't directly look into the progress.

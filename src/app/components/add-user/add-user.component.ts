@@ -77,6 +77,7 @@ export class AddUserComponent {
   workoutMinutes: number | null = null;
   workoutType: string | null = null;
   workoutOptions = workoutOptions;
+  errorMessage: string | null = null;
 
   onSubmit(form: NgForm) {
     const success = this.addUserService.addUser(
@@ -85,11 +86,17 @@ export class AddUserComponent {
       this.workoutMinutes
     );
     if (success) {
+      this.name = null;
+      this.workoutMinutes = null;
+      this.workoutType = null;
       form.resetForm();
       this.userAdded.emit();
       this.dialog.closeAll();
+    } else {
+      this.errorMessage = 'Failed to add user'; // Set the error message
     }
   }
+
   onCancel() {
     this.dialog.closeAll();
   }
