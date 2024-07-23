@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule, MatSelectChange } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -16,6 +17,7 @@ import { workoutOptions } from '@/app/components/add-user/add-user.component';
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
+    MatIconModule,
     MatSelectModule,
     MatFormFieldModule,
     CommonModule,
